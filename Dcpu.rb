@@ -2,10 +2,14 @@ require_relative "MemOperand.rb"
 require_relative "RegOperand.rb"
 require_relative "LiteralOperand.rb"
 
-class Dcpu
-
+module DcpuConstants
   #Constants for register numbers
   A, B, C, X, Y, Z, I, J, PC, SP, O = (0..10).to_a
+end
+
+class Dcpu
+
+  include DcpuConstants
 
   #Accessors for ram and registers
   attr_accessor :ram
@@ -231,22 +235,6 @@ class Dcpu
     @reg[SP] -= 1
     @ram[@reg[SP]] = @reg[PC]
     @reg[PC] = b.read
-  end
-
-  def print_status
-    print "PC:0x#{@reg[PC].to_s(16)} "
-    print "SP:0x#{@reg[SP].to_s(16)} "
-    print "O:0x#{@reg[O].to_s(16)}\n"
-    print "A:0x#{@reg[A].to_s(16)} "
-    print "B:0x#{@reg[B].to_s(16)} "
-    print "C:0x#{@reg[C].to_s(16)} "
-    print "X:0x#{@reg[X].to_s(16)}\n"
-    print "Y:0x#{@reg[Y].to_s(16)} "
-    print "Z:0x#{@reg[Z].to_s(16)} "
-    print "I:0x#{@reg[I].to_s(16)} "
-    print "J:0x#{@reg[J].to_s(16)}\n"
-    
-
   end
 
 end
