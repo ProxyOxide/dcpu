@@ -16,7 +16,7 @@ class DcpuMonitor
     @breakpoints = []
   end
 
-  def print_status
+  def print_state
     print "PC:#{"0x%04x" % reg[PC]} "
     print "SP:#{"0x%04x" % reg[SP]} "
     print "O:#{"0x%04x" % reg[O]}\n"
