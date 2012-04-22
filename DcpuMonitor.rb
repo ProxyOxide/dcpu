@@ -7,11 +7,13 @@ class DcpuMonitor
   include DcpuConstants
 
   attr_accessor :dcpu
+  attr_accessor :breakpoints
   extend Forwardable
   def_delegators :@dcpu, :cpu_step, :reg, :ram
 
   def initialize(dcpu=Dcpu.new)
     @dcpu = dcpu
+    @breakpoints = []
   end
 
   def print_status
@@ -39,6 +41,24 @@ class DcpuMonitor
     end
     print "\n"
     return nil
+  end
+
+  def set_break(breakpoint)
+    @breakpoints << breakpoint
+  end
+
+  def remove_break(breakpoint)
+    @breakpoints.delete(breakpoint)
+  end
+
+  def clear_breaks
+    @breakpoints = []
+  end
+
+  def run
+    begin 
+      cpu_step
+    end until @breakpoints.include? reg[PC]
   end
 
 end
